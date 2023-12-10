@@ -26,7 +26,7 @@ function final_filtered_signal = Filter_Bank(audio_signal, filter_file)
  end
 
  % Pass the signal and the impulse response to filter function
- filteredSignals=zeros(32,length(audio_signal));clc
+ filteredSignals=zeros(32,length(audio_signal));
  for i=1:32
  filteredSignals(i,:) = filter(impulseResponses(i,:),1 ,audio_signal);
  end
