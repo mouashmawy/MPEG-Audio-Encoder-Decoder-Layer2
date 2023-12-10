@@ -1,7 +1,7 @@
 function [Encoded_signal,subband_bits,min_array,max_array]= Encoder(filterOutput,Lk)
 
 % Applying fft on the filter output
-filter_fft =zeros(32,width(filterOutput));
+filter_fft =zeros(32,1024);
 
 for i=1:32
     filter_fft(i,:)=fft(filterOutput(i,:),1024);
@@ -11,11 +11,13 @@ end
 filter_SPLs=zeros(32,512);
 N=1024;
 for i = 1:32
-filter_SPLs=96+(10*log10((4/N^2)*abs(filter_fft(i,0:512).^2)*8/3));
+filter_SPLs(i,:)=96+(10*log10((4/N^2)*abs(filter_fft(i,513:1024).^2)*8/3));
 end
 %multipying the Lks vector by the filter SPLs
-for i = 0:32
-important_frequencies=Lk.*filter_SPLs(i,:);
+Lk_t=transpose(Lk);
+important_frequencies=zeros(32,512);
+for i = 1:32
+important_frequencies=Lk_t.*filter_SPLs(i,:);
 end
 
 %Summing resultant SPLs 
@@ -26,6 +28,7 @@ for i = 1:32
 end
 
 % bit allocation
+BPS_signal=16;
 subband_bits = zeros(1,32);
 count = 0;
 if BPS_signal<=16
