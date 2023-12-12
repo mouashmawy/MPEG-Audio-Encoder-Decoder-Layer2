@@ -12,14 +12,7 @@ function [sampled_dequan] = DeQuan(maxi, mini, n_bits, quan)
     
     sampled_dequan = zeros(1,length(quan));
     
-    length(levels)
     for i = 1:length(quan)
-        
-        
-        xxx = quan(i)+1;
-        disp([i, xxx]);
-        xxxx = levels(xxx);
-        sampled_dequan(i) = xxxx;
-        
+        sampled_dequan(i) = levels(quan(i));
     end
 end

@@ -18,9 +18,9 @@ function final_filtered_signal = Filter_Bank(audio_signal, filter_file)
  impulseResponses = zeros( 32 ,size(h, 1));
  
  
- for k = 1:32
-     for n = 1 : 512
-         impulseResponses(k,n) = h(n)*cos((k+0.5)*(n-16)*pi/32);
+ for k = 0:31
+     for n = 0 : 511
+         impulseResponses(k+1,n+1) = h(n+1)*cos((k+0.5)*(n-16)*pi/32);
 
      end
  end
@@ -30,6 +30,7 @@ function final_filtered_signal = Filter_Bank(audio_signal, filter_file)
  for i=1:32
  filteredSignals(i,:) = filter(impulseResponses(i,:),1 ,audio_signal);
  end
+
  % Downsample each filtered signal
  final_filtered_signal = zeros(size(filteredSignals, 1), length(audio_signal)/32);
  for i = 1:32

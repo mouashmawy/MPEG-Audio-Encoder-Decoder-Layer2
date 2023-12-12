@@ -98,7 +98,7 @@ end
 numFrames = size(filterOutput, 2) / 12; % Calculate the number of frames
 frames = zeros(numFrames, 384); % Initialize storage for frames, with each frame as a row
 % Initialize an empty vector to store sampled_quan values
-all_sampled_quan = [];
+Encoded_signal = [];
 max_array=[];
 min_array=[];
 for j = 1:12:size(filterOutput, 2) % Loop over columns in steps of 12
@@ -110,7 +110,7 @@ for j = 1:12:size(filterOutput, 2) % Loop over columns in steps of 12
 
             [maxi, mini, sampled_quan] = Quan(currentElements, subband_bits(i));
 
-            all_sampled_quan = [all_sampled_quan, sampled_quan];
+            Encoded_signal = [Encoded_signal , sampled_quan];
 
             max_array=[max_array , maxi];
             min_array=[min_array, mini];
